@@ -1,6 +1,6 @@
 services:
   odoo:
-    image: odoo-plugins-app:latest
+    image: odoo-demo-app:latest
     build:
       context: ./odoo
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
     networks:
       - odoo_plugins_default
   db:
-    image: odoo-plugins-db:latest
+    image: odoo-demo-db:latest
     build:
       context: ./postgres
       dockerfile: Dockerfile
@@ -33,8 +33,8 @@ services:
     networks:
       - odoo_plugins_default
   playwright:
-    container_name: odoo-plugins-playwright
-    image: odoo-plugins-playwright:latest
+    container_name: odoo-demo-playwright
+    image: odoo-demo-playwright:latest
     build:
       context: ./playwright
       dockerfile: Dockerfile

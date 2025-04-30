@@ -16,7 +16,7 @@ restart:
 destroy:
 	docker compose down --rmi all --volumes --remove-orphans
 db-volume-rm:
-	docker volume rm marutto-odoo-plugins_db-data
+	docker volume rm marutto-odoo-demo_db-data
 prune:
 	docker builder prune
 prune-all:
@@ -174,6 +174,6 @@ rebuild-playwright:
 	docker compose build playwright --no-cache --force-rm
 	docker compose up -d playwright
 exec-playwright:
-	docker cp ./playwright/tests odoo-plugins-playwright:/playwright/tests
+	docker cp ./playwright/tests odoo-demo-playwright:/playwright/tests
 	docker compose exec playwright npx playwright test
-	docker cp odoo-plugins-playwright:/playwright/test-results ./playwright
+	docker cp odoo-demo-playwright:/playwright/test-results ./playwright
