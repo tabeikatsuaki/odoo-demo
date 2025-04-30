@@ -1,0 +1,59 @@
+services:
+  odoo:
+    image: odoo-plugins-app:latest
+    build:
+      context: ./odoo
+      dockerfile: Dockerfile
+      args:
+        - ODOO_VERSION=${ODOO_VERSION}
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+    ports:
+      - ${ODOO_PORT}:8069
+    volumes:
+      - app-data:/opt/odoo/data
+    networks:
+      - odoo_plugins_default
+  db:
+    image: odoo-plugins-db:latest
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - odoo_plugins_default
+  playwright:
+    container_name: odoo-plugins-playwright
+    image: odoo-plugins-playwright:latest
+    build:
+      context: ./playwright
+      dockerfile: Dockerfile
+    environment:
+      ODOO_HOST: odoo
+      ODOO_PORT: 8069
+    depends_on:
+      - odoo
+    shm_size: 2gb
+    volumes:
+      - test-results:/playwright/test-results
+    networks:
+      - odoo_plugins_default
+
+volumes:
+  app-data:
+  db-data:
+  test-results:
+
+networks:
+  odoo_plugins_default:
+    driver: bridge

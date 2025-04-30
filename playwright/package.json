@@ -1,0 +1,17 @@
+{
+  "name": "odoo-demo-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.14.1",
+    "dotenv": "^16.5.0",
+    "typescript": "^5.8.3"
+  }
+}

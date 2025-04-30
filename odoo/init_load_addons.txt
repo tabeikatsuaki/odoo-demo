@@ -1,0 +1,6 @@
+base
+contacts
+purchase
+stock
+stock_barcode
+gs1_barcode
